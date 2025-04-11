@@ -72,6 +72,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         .AddSupportedUICultures(supportedCultures);
 });
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddScoped<IArticleDataAccess, ArticleDataAccess>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -87,8 +89,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var localizationOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+var localizationOptions = app
+    .Services.GetRequiredService<IOptions<RequestLocalizationOptions>>()
+    .Value;
 app.UseRequestLocalization(localizationOptions);
+
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
