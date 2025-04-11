@@ -125,4 +125,32 @@
     <value>Erreur serveur interne</value>
     <comment/>
   </data>
+  <data name="UserError" xml:space="preserve">
+    <value>Erreur lors de la création de l'utilisateur</value>
+    <comment/>
+  </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>Le role n'existe pas</value>
+    <comment/>
+  </data>
+  <data name="DateInPast" xml:space="preserve">
+    <value>La date ne peut pas être dans le passé.</value>
+    <comment/>
+  </data>
+  <data name="MaxTechUser" xml:space="preserve">
+    <value>Une intervention ne peut pas avoir plus de 2 techniciens.</value>
+    <comment/>
+  </data>
+  <data name="notFoundTech" xml:space="preserve">
+    <value>Technicien introuvable</value>
+    <comment/>
+  </data>
+  <data name="UserNotRoleTechUserNotRoleTech" xml:space="preserve">
+    <value>L'utilisateur n'a pas le rôle technicien</value>
+    <comment/>
+  </data>
+  <data name="ServiceNotFound" xml:space="preserve">
+    <value>Service non trouvé</value>
+    <comment/>
+  </data>
 </root>

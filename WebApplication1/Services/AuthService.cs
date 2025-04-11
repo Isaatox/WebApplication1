@@ -12,11 +12,17 @@ namespace WebApplication1
     public class AuthService : IAuthService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IConfiguration _config;
 
-        public AuthService(UserManager<ApplicationUser> userManager, IConfiguration config)
+        public AuthService(
+            UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationRole> roleManager,
+            IConfiguration config
+        )
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _config = config;
         }
 
@@ -35,6 +41,8 @@ namespace WebApplication1
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
                 throw new Exception($"Registration failed: {errors}");
             }
+
+            await _userManager.AddToRoleAsync(user, "Client");
 
             return await GenerateAuthResponse(user);
         }

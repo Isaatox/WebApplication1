@@ -11,14 +11,12 @@ using WebApplication1.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configuration de la base de données
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -72,11 +70,13 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
         .AddSupportedUICultures(supportedCultures);
 });
 
-builder.Services.AddScoped<IArticleDataAccess, ArticleDataAccess>();
-builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IServiceTypeDataAccess, ServiceTypeDataAccess>();
+builder.Services.AddScoped<ITypeService, TypeService>();
 
 var app = builder.Build();
+
+await DbSeeder.SeedDatabaseAsync(app.Services);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -87,7 +87,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var localizationOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value;
+var localizationOptions = app
+    .Services.GetRequiredService<IOptions<RequestLocalizationOptions>>()
+    .Value;
 app.UseRequestLocalization(localizationOptions);
 
 app.UseMiddleware<ErrorHandlingMiddleware>();

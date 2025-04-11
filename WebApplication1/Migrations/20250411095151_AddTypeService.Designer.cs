@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication1;
@@ -11,9 +12,11 @@ using WebApplication1;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250411095151_AddTypeService")]
+    partial class AddTypeService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,52 +24,6 @@ namespace WebApplication1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("ApplicationUserIntervention", b =>
-                {
-                    b.Property<int>("InterventionsAffecteesId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TechniciensId")
-                        .HasColumnType("text");
-
-                    b.HasKey("InterventionsAffecteesId", "TechniciensId");
-
-                    b.HasIndex("TechniciensId");
-
-                    b.ToTable("InterventionTechniciens", (string)null);
-                });
-
-            modelBuilder.Entity("Intervention", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ServiceTypeId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("ServiceTypeId");
-
-                    b.ToTable("Interventions");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -193,7 +150,7 @@ namespace WebApplication1.Migrations
 
                     b.ToTable("Services");
                 });
-                
+
             modelBuilder.Entity("WebApplication1.Identity.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -294,40 +251,6 @@ namespace WebApplication1.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("ApplicationUserIntervention", b =>
-                {
-                    b.HasOne("Intervention", null)
-                        .WithMany()
-                        .HasForeignKey("InterventionsAffecteesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication1.Identity.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("TechniciensId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Intervention", b =>
-                {
-                    b.HasOne("WebApplication1.Identity.ApplicationUser", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ServiceType", "ServiceType")
-                        .WithMany()
-                        .HasForeignKey("ServiceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("ServiceType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using WebApplication1.Identity;
+using WebApplication1.Seeders;
+
 namespace WebApplication1
 {
     public static class DbSeeder
@@ -6,10 +10,21 @@ namespace WebApplication1
         {
             using var scope = services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            var userManager = scope.ServiceProvider.GetRequiredService<
+                UserManager<ApplicationUser>
+            >();
+            var roleManager = scope.ServiceProvider.GetRequiredService<
+                RoleManager<ApplicationRole>
+            >();
 
             await context.Database.EnsureCreatedAsync();
 
-            var seeders = new List<IDbSeeder> { new ArticleSeeder() };
+            var seeders = new List<IDbSeeder>
+            {
+                new RoleSeeder(),
+                new UserSeeder(userManager),
+                new ServiceTypeSeeder(),
+            };
 
             foreach (var seeder in seeders)
             {

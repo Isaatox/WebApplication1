@@ -121,4 +121,36 @@
     <value>Admin make a crash !</value>
     <comment/>
   </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Internal Server Error</value>
+    <comment/>
+  </data>
+  <data name="UserError" xml:space="preserve">
+    <value>Error during account creation</value>
+    <comment/>
+  </data>
+  <data name="RoleNotExist" xml:space="preserve">
+    <value>Role does not exist</value>
+    <comment/>
+  </data>
+  <data name="DateInPast" xml:space="preserve">
+    <value>The date cannot be in the past.</value>
+    <comment/>
+  </data>
+  <data name="MaxTechUser" xml:space="preserve">
+    <value>No more than 2 technicians can be involved in a single operation.</value>
+    <comment/>
+  </data>
+  <data name="notFoundTech" xml:space="preserve">
+    <value>Technician not found</value>
+    <comment/>
+  </data>
+  <data name="UserNotRoleTechUserNotRoleTech" xml:space="preserve">
+    <value>The user is not a technician</value>
+    <comment/>
+  </data>
+  <data name="ServiceNotFound" xml:space="preserve">
+    <value>Service not found</value>
+    <comment/>
+  </data>
 </root>
